@@ -102,8 +102,8 @@ namespace Nexus.Logging.Entry
                 if (type.Namespace != null && type.Namespace.StartsWith("Nexus.Logging", StringComparison.InvariantCulture)) continue;
                 if (this.NamespaceWhitelist.Count > 0 && this.NamespaceWhitelist.FirstOrDefault(name => type.Namespace.StartsWith(name, StringComparison.InvariantCulture)) == null) continue;
                 if (this.NamespaceBlacklist.Count > 0 && this.NamespaceBlacklist.FirstOrDefault(name => type.Namespace.StartsWith(name, StringComparison.InvariantCulture)) != null) continue;
-                if (method.GetCustomAttributes(typeof(IgnoreLoggingAttribute), true).Length > 0) continue;
-                if (type.GetCustomAttributes(typeof(IgnoreLoggingAttribute), true).Length > 0) continue;
+                if (method.GetCustomAttributes(typeof(LogTraceIgnoreAttribute), true).Length > 0) continue;
+                if (type.GetCustomAttributes(typeof(LogTraceIgnoreAttribute), true).Length > 0) continue;
                 if (type.Name.Contains('<')) continue;
                 if (method.Name.Contains('<')) continue;
                 
