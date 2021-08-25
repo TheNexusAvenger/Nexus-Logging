@@ -16,6 +16,8 @@ namespace Nexus.Logging.Test.Entry
         public void TestGetPrefix()
         {
             var logEntry = new LogEntry();
+            logEntry.Level = LogLevel.Information;
+            Assert.AreEqual(logEntry.GetPrefix(), "[Info ]");
             logEntry.Level = LogLevel.Debug;
             Assert.AreEqual(logEntry.GetPrefix(), "[Debug]");
             logEntry.Time = new DateTime(637654124218362434);

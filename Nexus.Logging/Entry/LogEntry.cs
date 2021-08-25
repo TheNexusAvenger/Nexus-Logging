@@ -12,6 +12,20 @@ namespace Nexus.Logging.Entry
     public class LogEntry
     {
         /// <summary>
+        /// Log level enums to names. Requested by zaop in Uchu so
+        /// that the log messages are aligned (except Critical).
+        /// </summary>
+        private static readonly Dictionary<LogLevel, string> LogLevelDisplayNames = new Dictionary<LogLevel, string>
+        {
+            {LogLevel.Trace, "Trace"},
+            {LogLevel.Debug, "Debug"},
+            {LogLevel.Information, "Info "},
+            {LogLevel.Warning, "Warn "},
+            {LogLevel.Error, "Error"},
+            {LogLevel.Critical, "Critical"},
+        };
+        
+        /// <summary>
         /// Level of the log.
         /// </summary>
         public LogLevel Level { get; set; }
@@ -59,7 +73,10 @@ namespace Nexus.Logging.Entry
             {
                 entries.Add(this.Time.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture));
             }
-            entries.Add(this.Level.ToString());
+            if (LogLevelDisplayNames.ContainsKey(this.Level))
+            {
+                entries.Add(LogLevelDisplayNames[this.Level]);
+            }
             entries.AddRange(this.AdditionalLogInfo);
 
             // Combine the entries and return them.
