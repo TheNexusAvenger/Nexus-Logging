@@ -2,6 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Nexus Logging</Title>
+        <Authors>TheNexusAvenger</Authors>
+        <Description>Basic logging system used by projects like Uchu.</Description>
+        <PackageProjectUrl>https://github.com/thenexusavenger/nexus-logging</PackageProjectUrl>
+        <License>https://github.com/TheNexusAvenger/Nexus-Logging/blob/master/LICENSE</License>
+        <RepositoryUrl>https://github.com/thenexusavenger/nexus-logging</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
