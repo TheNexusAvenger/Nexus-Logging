@@ -51,6 +51,11 @@ namespace Nexus.Logging.Entry
         public List<string> AdditionalLogInfo { get; set; } = new List<string>();
 
         /// <summary>
+        /// Override postfix to use in place of the stack trace.
+        /// </summary>
+        public string OverridePostfix { get; set; }
+
+        /// <summary>
         /// Namespace whitelist used for filtering stack traces.
         /// If it is empty, all namespaces will be allowed.
         /// </summary>
@@ -90,6 +95,9 @@ namespace Nexus.Logging.Entry
         /// <param name="maxWidth">Width of the message to use for wrapping.</param>
         public string GetPostfix(int maxWidth = 120)
         {
+            // Return the override postfix if one is defined.
+            if (!string.IsNullOrEmpty(this.OverridePostfix)) return "[" + WrapText.Truncate(this.OverridePostfix,  (int) (maxWidth * 0.4)) + "]";
+            
             // Return an empty string if no trace is defined.
             if (this.Trace == null) return "";
             

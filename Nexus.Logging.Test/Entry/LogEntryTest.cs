@@ -27,6 +27,20 @@ namespace Nexus.Logging.Test.Entry
             Assert.AreEqual(logEntry.GetPrefix(), "[2021-08-24 14:33:41.836] [Debug] [Test1] [Test2]");
             Assert.AreEqual(logEntry.GetPrefix(80), "[2021-08-24 14:33:41.836] [Deb...]");
         }
+        
+        /// <summary>
+        /// Tests the GetPostfix method.
+        /// </summary>
+        [Test]
+        public void TestGetPostfix()
+        {
+            var logEntry = new LogEntry();
+            Assert.AreEqual(logEntry.GetPostfix(), "");
+            logEntry.OverridePostfix = "Test";
+            Assert.AreEqual(logEntry.GetPostfix(), "[Test]");
+            logEntry.OverridePostfix = "";
+            Assert.AreEqual(logEntry.GetPostfix(), "");
+        }
 
         /// <summary>
         /// Tests the GetLines method.
