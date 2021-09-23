@@ -26,12 +26,13 @@ namespace Nexus.Logging.Output
         /// Namespace blacklist used for filtering stack traces.
         /// </summary>
         List<string> NamespaceBlacklist { get; set; }
-        
+
         /// <summary>
         /// Logs a message.
         /// </summary>
         /// <param name="message">Message to log. Can be an object, like an exception.</param>
         /// <param name="level">Log level to output with.</param>
-        void LogMessage(object message, LogLevel level);
+        /// /// <param name="overridePostfix">Override postfix for the message.</param>
+        void LogMessage(object message, LogLevel level, string overridePostfix = null);
     }
 }

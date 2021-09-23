@@ -16,7 +16,8 @@ namespace Nexus.Logging
         /// </summary>
         /// <param name="message">Message to log. Can be an object, like an exception.</param>
         /// <param name="level">Log level to output with.</param>
-        public void Log(object message, LogLevel level)
+        /// /// <param name="overridePostfix">Override postfix for the message.</param>
+        public void Log(object message, LogLevel level, string overridePostfix = null)
         {
             foreach (var output in this.Outputs)
             {

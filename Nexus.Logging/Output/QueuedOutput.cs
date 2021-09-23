@@ -56,7 +56,8 @@ namespace Nexus.Logging.Output
         /// </summary>
         /// <param name="message">Message to log. Can be an object, like an exception.</param>
         /// <param name="level">Log level to output with.</param>
-        public void LogMessage(object message, LogLevel level)
+        /// <param name="overridePostfix">Override postfix for the message.</param>
+        public void LogMessage(object message, LogLevel level, string overridePostfix = null)
         {
             // Return if the log level is too slow.
             if (level < this.MinimumLevel) return;
@@ -71,6 +72,7 @@ namespace Nexus.Logging.Output
                 Trace = new StackTrace(),
 #endif
                 AdditionalLogInfo = this.AdditionalLogInfo,
+                OverridePostfix = overridePostfix,
                 NamespaceWhitelist = this.NamespaceWhitelist,
                 NamespaceBlacklist = this.NamespaceBlacklist,
             });
