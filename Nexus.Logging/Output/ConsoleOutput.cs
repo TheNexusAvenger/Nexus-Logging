@@ -21,6 +21,11 @@ namespace Nexus.Logging.Output
             {LogLevel.Critical, ConsoleColor.DarkRed},
             {LogLevel.None, ConsoleColor.White},
         };
+
+        /// <summary>
+        /// Default width of the text to use if it isn't in a console window.
+        /// </summary>
+        public int DefaultLineWidth { get; set; } = 120;
         
         /// <summary>
         /// Processes a message.
@@ -40,7 +45,7 @@ namespace Nexus.Logging.Output
             }
             
             // Log the lines.
-            foreach (var line in entry.GetLines(Console.WindowWidth > 0 ? Console.WindowWidth - 1 : 120))
+            foreach (var line in entry.GetLines(Console.WindowWidth > 0 ? Console.WindowWidth - 1 : this.DefaultLineWidth))
             {
                 await Console.Out.WriteLineAsync(line).ConfigureAwait(false);
             }

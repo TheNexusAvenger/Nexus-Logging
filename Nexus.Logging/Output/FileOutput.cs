@@ -10,6 +10,11 @@ namespace Nexus.Logging.Output
         /// Location to write the logs.
         /// </summary>
         public string FileLocation { get; set; } = "output.log";
+
+        /// <summary>
+        /// Width of the lines to use for the file output.
+        /// </summary>
+        public int LineWidth { get; set; } = 140;
         
         /// <summary>
         /// Processes a message.
@@ -17,7 +22,7 @@ namespace Nexus.Logging.Output
         /// <param name="entry">Entry to process</param>
         public override Task ProcessMessage(LogEntry entry)
         {
-            File.AppendAllLines(this.FileLocation, entry.GetLines(140));
+            File.AppendAllLines(this.FileLocation, entry.GetLines(this.LineWidth));
             return Task.CompletedTask;
         }
     }
