@@ -12,7 +12,7 @@ namespace Nexus.Logging.Test.Entry
         public void TestPopEntry()
         {
             var queue = new LogQueue();
-            Assert.IsNull(queue.PopEntry());
+            Assert.That(queue.PopEntry(), Is.Null);
             queue.AddEntry(new LogEntry()
             {
                 Message = "Message 1",
@@ -21,9 +21,9 @@ namespace Nexus.Logging.Test.Entry
             {
                 Message = "Message 2",
             });
-            Assert.AreEqual(queue.PopEntry().Message, "Message 1");
-            Assert.AreEqual(queue.PopEntry().Message, "Message 2");
-            Assert.IsNull(queue.PopEntry());
+            Assert.That(queue.PopEntry().Message, Is.EqualTo("Message 1"));
+            Assert.That(queue.PopEntry().Message, Is.EqualTo("Message 2"));
+            Assert.That(queue.PopEntry(), Is.Null);
         }
     }
 }
