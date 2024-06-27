@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Nexus.Logging.Output;
 
@@ -87,6 +88,18 @@ namespace Nexus.Logging
         public void Dispose()
         {
             
+        }
+        
+        /// <summary>
+        /// Waits for all loggers to finish processing logs.
+        /// </summary>
+        public async Task WaitForCompletionAsync()
+        {
+            foreach (var output in this.Outputs)
+            {
+                if (!(output is QueuedOutput queuedOutput)) continue;
+                await queuedOutput.WaitForCompletionAsync();
+            }
         }
     }
     

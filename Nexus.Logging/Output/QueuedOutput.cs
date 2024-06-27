@@ -18,12 +18,18 @@ namespace Nexus.Logging.Output
         /// <summary>
         /// Queue for the log entries.
         /// </summary>
-        private LogQueue _queue = new LogQueue();
+        private readonly LogQueue _queue = new LogQueue();
 
         /// <summary>
         /// Semaphore for starting the processing.
         /// </summary>
-        private SemaphoreSlim _semaphore = new SemaphoreSlim(1);
+        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);
+
+        /// <summary>
+        /// Semaphore for processing.
+        /// This is taken by the processing loop and can be used by CloseAsync to wait for processing to finish.
+        /// </summary>
+        private readonly SemaphoreSlim _processingSemaphore = new SemaphoreSlim(1);
         
         /// <summary>
         /// Whether to include the date with the logs.
@@ -82,6 +88,7 @@ namespace Nexus.Logging.Output
             if (!this._processing)
             {
                 this._processing = true;
+                this._processingSemaphore.Wait();
                 Task.Run(async () =>
                 {
                     while (true)
@@ -91,9 +98,19 @@ namespace Nexus.Logging.Output
                         await this.ProcessMessage(entry);
                     }
                     this._processing = false;
+                    this._processingSemaphore.Release();
                 });
             }
             this._semaphore.Release();
+        }
+
+        /// <summary>
+        /// Waits for the current log queue to be processed.
+        /// </summary>
+        public async Task WaitForCompletionAsync()
+        {
+            await this._processingSemaphore.WaitAsync();
+            this._processingSemaphore.Release();
         }
 
         /// <summary>
