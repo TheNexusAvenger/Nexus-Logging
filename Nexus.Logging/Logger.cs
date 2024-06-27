@@ -27,6 +27,15 @@ namespace Nexus.Logging
         }
 
         /// <summary>
+        /// Logs a message as a Trace level.
+        /// </summary>
+        /// <param name="message">Message to log. Can be an object, like an exception.</param>
+        public void Trace(object message)
+        {
+            this.Log(message, LogLevel.Trace);
+        }
+
+        /// <summary>
         /// Logs a message as a Debug level.
         /// </summary>
         /// <param name="message">Message to log. Can be an object, like an exception.</param>
